@@ -5,13 +5,13 @@ using Libs.Logic.Containers;
 using Libs.Logic.Loaders;
 using Libs.Logic.Providers;
 using Libs.Logic.SceneViews;
-using Logic.Ecs.Components.Hero;
+using Logic.Ecs.Components.Lvl;
 using UnityEngine;
 
 namespace Logic.Ecs.Systems
 {
     [UsedImplicitly]
-    public class PlayerInitSystem : IEcsInitSystem
+    public class HeroInitSystem : IEcsInitSystem
     {
         private const string HeroPrefab = "Prefabs/Heroes/Hero";
         
@@ -20,7 +20,7 @@ namespace Logic.Ecs.Systems
         private readonly RunTimeObjectsContainer _runTimeObjectsContainer;
         private readonly LevelUnit _levelUnit;
 
-        public PlayerInitSystem(
+        public HeroInitSystem(
             ResourceLoadService resourceLoadService,
             SpawnPointsProvider spawnPointsProvider,
             RunTimeObjectsContainer runTimeObjectsContainer,
@@ -37,8 +37,12 @@ namespace Logic.Ecs.Systems
             var world = systems.GetWorld();
             var playerEntity = world.NewEntity();
             var heroesPool = world.GetPool<Hero>();
+            var currentPositionPool = world.GetPool<CurrentPositionComponent>();
+            var synchronizePool = world.GetPool<PositionSynchronize>();
             ref var hero = ref heroesPool.Add(playerEntity);
-
+            ref var currentPosition = ref currentPositionPool.Add(playerEntity);
+            ref var sync = ref synchronizePool.Add(playerEntity);
+            
             var heroGO = _resourceLoadService.Load(HeroPrefab);
             
             if (heroGO == null)
@@ -54,8 +58,9 @@ namespace Logic.Ecs.Systems
             var playerView = Object.Instantiate(heroGO, heroSpawnPosition, Quaternion.identity, _levelUnit.RunTimeUnitsContainer);
             
             _runTimeObjectsContainer.AddNew(playerView.GetInstanceID(), playerView);
-            hero.Position = heroSpawnPosition;
+            currentPosition.Position = heroSpawnPosition;
             hero.InstanceId = playerView.GetInstanceID();
+            sync.InstanceId = playerView.GetInstanceID();
         }
     }
 }

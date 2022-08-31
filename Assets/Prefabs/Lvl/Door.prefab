@@ -126,4 +126,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _closePosition: {x: 0, y: 1, z: 0.5}
-  _openPosition: {x: 0, y: 0, z: -1.5}
+  _openPosition: {x: 0, y: 1, z: -1.5}
+  _doorPlate: {fileID: 3428411940023920799}

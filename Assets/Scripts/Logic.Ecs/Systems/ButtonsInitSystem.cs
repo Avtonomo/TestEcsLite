@@ -2,7 +2,7 @@ using JetBrains.Annotations;
 using Leopotam.EcsLite;
 using Libs.Logic.Containers;
 using Libs.Logic.SceneViews;
-using Logic.Ecs.Components.Hero;
+using Logic.Ecs.Components.Lvl;
 using UnityEngine;
 
 namespace Logic.Ecs.Systems
@@ -28,7 +28,9 @@ namespace Logic.Ecs.Systems
             {
                 var buttonEntity = world.NewEntity();
                 var buttonPool = world.GetPool<LevelButton>();
+                var positionsPool = world.GetPool<CurrentPositionComponent>();
                 ref var levelButton = ref buttonPool.Add(buttonEntity);
+                ref var buttonPosition = ref positionsPool.Add(buttonEntity);
 
                 var buttonInstanceId = levelButtonUnit.GetInstanceID();
                 var linkedDoor = levelButtonUnit.DoorUnit;
@@ -45,6 +47,7 @@ namespace Logic.Ecs.Systems
 
                 levelButton.SelfInstanceId = buttonInstanceId;
                 levelButton.LinkDoorInstanceId = linkedDoor.GetInstanceID();
+                buttonPosition.Position = levelButtonUnit.transform.position;
             }
         }
     }

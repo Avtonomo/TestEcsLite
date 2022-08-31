@@ -1,5 +1,6 @@
 using Leopotam.EcsLite;
 using Logic.Ecs.Systems;
+using Logic.Ecs.Systems.Client;
 using UnityEngine;
 using Zenject;
 
@@ -12,16 +13,26 @@ namespace Libs.Logic.Init
 
         [Inject]
         private void Init(
-            PlayerInitSystem playerInitSystem,
+            HeroInitSystem heroInitSystem,
             DoorsInitSystem doorsInitSystem,
-            ButtonsInitSystem buttonsInitSystem)
+            ButtonsInitSystem buttonsInitSystem,
+            UserMouseInputSystem userMouseInputSystem,
+            EntityMovementSystem entityMovementSystem,
+            EntityPositionSynchronizeSystem entityPositionSynchronizeSystem,
+            ButtonCollisionSystem buttonCollisionSystem,
+            DoorOpenSystem doorOpenSystem)
         {
             var world = new EcsWorld();
             _systems = new EcsSystems(world);
             _systems
-                .Add(playerInitSystem)
+                .Add(heroInitSystem)
                 .Add(doorsInitSystem)
                 .Add(buttonsInitSystem)
+                .Add(userMouseInputSystem)
+                .Add(buttonCollisionSystem)
+                .Add(doorOpenSystem)
+                .Add(entityMovementSystem)
+                .Add(entityPositionSynchronizeSystem)
 #if UNITY_EDITOR
                 .Add (new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem ())
 #endif
