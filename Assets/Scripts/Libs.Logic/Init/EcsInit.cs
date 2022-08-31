@@ -12,12 +12,20 @@ namespace Libs.Logic.Init
 
         [Inject]
         private void Init(
-            PlayerInitSystem playerInitSystem)
+            PlayerInitSystem playerInitSystem,
+            DoorsInitSystem doorsInitSystem,
+            ButtonsInitSystem buttonsInitSystem)
         {
             var world = new EcsWorld();
             _systems = new EcsSystems(world);
             _systems
-                .Add(playerInitSystem).Init();
+                .Add(playerInitSystem)
+                .Add(doorsInitSystem)
+                .Add(buttonsInitSystem)
+#if UNITY_EDITOR
+                .Add (new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem ())
+#endif
+                .Init();
         }
 
         private void Update()

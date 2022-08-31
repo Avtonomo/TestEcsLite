@@ -8,6 +8,8 @@ namespace Installers
         public override void InstallBindings()
         {
             Container.Bind<PlayerInitSystem>().AsSingle();
+            Container.Bind<ButtonsInitSystem>().AsSingle();
+            Container.Bind<DoorsInitSystem>().AsSingle();
         }
     }
 }
