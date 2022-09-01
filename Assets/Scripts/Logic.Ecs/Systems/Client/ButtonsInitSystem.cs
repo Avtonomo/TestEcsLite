@@ -45,7 +45,6 @@ namespace Logic.Ecs.Systems.Client
 
                 _runTimeObjectsContainer.AddNew(buttonInstanceId, levelButtonUnit.gameObject);
 
-                levelButton.SelfInstanceId = buttonInstanceId;
                 levelButton.LinkDoorInstanceId = linkedDoor.GetInstanceID();
                 buttonPosition.Position = levelButtonUnit.transform.position;
             }

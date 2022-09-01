@@ -15,7 +15,7 @@ namespace Logic.Ecs.Systems.Server
             var positions = world.GetPool<CurrentPosition>();
             var movementSpeeds = world.GetPool<MovementSpeed>();
             var filter = world.Filter<CurrentPosition>().End ();
-
+            var deltaTime = Time.deltaTime;
             foreach (var entity in filter)
             {
                 if (!inputs.Has(entity)) continue;
@@ -25,9 +25,9 @@ namespace Logic.Ecs.Systems.Server
 
                 var input = inputs.Get(entity);
                 
-                var newPosition = Vector3.MoveTowards(positionContainer.Position, input.TargetPosition, Time.deltaTime * moveSpeed.Value);
                 var dir = input.TargetPosition - positionContainer.Position;
-
+                var newPosition = positionContainer.Position + dir.normalized * (moveSpeed.Value * deltaTime);
+                
                 positionContainer.Position = newPosition;
                 positionContainer.Direction = dir.normalized;
                 

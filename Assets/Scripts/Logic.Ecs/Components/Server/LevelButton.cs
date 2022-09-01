@@ -4,6 +4,5 @@ namespace Logic.Ecs.Components.Server
     {
         public bool IsActive;
         public int LinkDoorInstanceId;
-        public int SelfInstanceId;
     }
 }
