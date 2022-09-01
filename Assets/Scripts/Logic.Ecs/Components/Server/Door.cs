@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Logic.Ecs.Components.Lvl
+namespace Logic.Ecs.Components.Server
 {
     public struct Door
     {

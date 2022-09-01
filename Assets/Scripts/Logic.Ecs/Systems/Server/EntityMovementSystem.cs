@@ -1,10 +1,8 @@
 using Leopotam.EcsLite;
-using Libs.Logic.Containers;
-using Logic.Ecs.Components.Lvl;
-using Logic.Ecs.Components.Runtime;
+using Logic.Ecs.Components.Server;
 using UnityEngine;
 
-namespace Logic.Ecs.Systems
+namespace Logic.Ecs.Systems.Server
 {
     public class EntityMovementSystem : IEcsRunSystem
     {

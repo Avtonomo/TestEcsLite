@@ -1,3 +1,4 @@
+using Libs.Logic.SceneViews.Interfaces;
 using UnityEngine;
 
 namespace Libs.Logic.SceneViews

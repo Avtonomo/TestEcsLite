@@ -13,7 +13,7 @@ namespace Libs.Logic.Containers
             if (_sceneObjects.ContainsKey(instanceId))
             {
 #if UNITY_EDITOR
-          Debug.LogError($"Object exist! Id: {instanceId}");      
+                Debug.LogError($"Object exist! Id: {instanceId}");
 #endif
                 return;
             }

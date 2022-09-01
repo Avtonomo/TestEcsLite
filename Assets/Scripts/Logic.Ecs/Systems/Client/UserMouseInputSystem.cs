@@ -1,12 +1,14 @@
 using Leopotam.EcsLite;
-using Logic.Ecs.Components.Lvl;
-using Logic.Ecs.Components.Runtime;
+using Logic.Ecs.Components.Server;
 using UnityEngine;
 
-namespace Logic.Ecs.Systems
+namespace Logic.Ecs.Systems.Client
 {
     public class UserMouseInputSystem : IEcsRunSystem
     {
+        private const string FloorLayerName = "Floor";
+        private const float RayCastDistance = 100f;
+        
         private readonly Camera _mainCamera;
         
         public UserMouseInputSystem()
@@ -20,7 +22,9 @@ namespace Logic.Ecs.Systems
 
             var targetPosition = Input.mousePosition;
             var ray = _mainCamera.ScreenPointToRay(targetPosition);
-            if (!Physics.Raycast(ray, out var hit)) return;
+            var layerMask = LayerMask.GetMask(FloorLayerName);
+            
+            if (!Physics.Raycast(ray, out var hit, RayCastDistance, layerMask)) return;
             var targetWorldPosition = hit.point;
             
             var world = systems.GetWorld();
@@ -29,15 +33,17 @@ namespace Logic.Ecs.Systems
 
             foreach (var heroEntity in filter)
             {
+                var targetMovePosition = new Vector3(targetWorldPosition.x, 0, targetWorldPosition.z);
+                
                 if (heroesInput.Has(heroEntity))
                 {
                     ref var newInput = ref heroesInput.Get(heroEntity);
-                    newInput.TargetPosition = new Vector3(targetWorldPosition.x, 0, targetWorldPosition.z);
+                    newInput.TargetPosition = targetMovePosition;
                 }
                 else
                 {
                     ref var newInput = ref heroesInput.Add(heroEntity);
-                    newInput.TargetPosition = new Vector3(targetWorldPosition.x, 0, targetWorldPosition.z);;
+                    newInput.TargetPosition = targetMovePosition;
                 }
             }
         }

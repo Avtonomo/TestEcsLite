@@ -1,4 +1,4 @@
-namespace Libs.Logic.SceneViews
+namespace Libs.Logic.SceneViews.Interfaces
 {
     public interface IStateSetter
     {

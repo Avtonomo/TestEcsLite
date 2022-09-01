@@ -1,7 +1,9 @@
 using Leopotam.EcsLite;
 using Libs.Logic.Containers;
 using Libs.Logic.SceneViews;
-using Logic.Ecs.Components.Lvl;
+using Libs.Logic.SceneViews.Interfaces;
+using Logic.Ecs.Components.Client;
+using Logic.Ecs.Components.Server;
 
 namespace Logic.Ecs.Systems.Client
 {

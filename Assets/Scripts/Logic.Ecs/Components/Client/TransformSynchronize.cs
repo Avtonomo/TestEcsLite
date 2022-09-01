@@ -1,4 +1,4 @@
-namespace Logic.Ecs.Components.Lvl
+namespace Logic.Ecs.Components.Client
 {
     public struct TransformSynchronize
     {

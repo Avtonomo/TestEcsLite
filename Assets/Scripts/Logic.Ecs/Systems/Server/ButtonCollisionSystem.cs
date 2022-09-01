@@ -1,8 +1,7 @@
 using Leopotam.EcsLite;
-using Logic.Ecs.Components.Lvl;
-using UnityEngine;
+using Logic.Ecs.Components.Server;
 
-namespace Logic.Ecs.Systems
+namespace Logic.Ecs.Systems.Server
 {
     public class ButtonCollisionSystem : IEcsRunSystem
     {

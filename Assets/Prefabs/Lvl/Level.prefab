@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 875739425670401648}
   - component: {fileID: 483948989774312752}
   - component: {fileID: 3675658402748686560}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8297569381402183288}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FloorGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948d042ed34e246389e034b0f3d5cefc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _floorGridUnit: {fileID: 0}
   _runTimeUnitsContainer: {fileID: 6066043695562003120}
   _doors:
   - {fileID: 199978598825428112}

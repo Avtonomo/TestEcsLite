@@ -2,10 +2,10 @@ using JetBrains.Annotations;
 using Leopotam.EcsLite;
 using Libs.Logic.Containers;
 using Libs.Logic.SceneViews;
-using Logic.Ecs.Components.Lvl;
+using Logic.Ecs.Components.Server;
 using UnityEngine;
 
-namespace Logic.Ecs.Systems
+namespace Logic.Ecs.Systems.Client
 {
     [UsedImplicitly]
     public class ButtonsInitSystem : IEcsInitSystem

@@ -1,7 +1,7 @@
 using Leopotam.EcsLite;
-using Logic.Ecs.Components.Lvl;
+using Logic.Ecs.Components.Server;
 
-namespace Logic.Ecs.Systems
+namespace Logic.Ecs.Systems.Server
 {
     public class DoorCheckStateSystem : IEcsRunSystem
     {
@@ -11,7 +11,7 @@ namespace Logic.Ecs.Systems
         {
             var world = systems.GetWorld();
             var doorsPool = world.GetPool<Door>();
-            var doors = world.Filter<Door>().End ();
+            var doors = world.Filter<Door>().Inc<MoveTarget>().End ();
             var positions = world.GetPool<CurrentPosition>();
 
             foreach (var doorEntity in doors)

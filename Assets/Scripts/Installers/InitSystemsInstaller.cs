@@ -1,5 +1,6 @@
 using Logic.Ecs.Systems;
 using Logic.Ecs.Systems.Client;
+using Logic.Ecs.Systems.Server;
 using Zenject;
 
 namespace Installers

@@ -1,6 +1,6 @@
 using Leopotam.EcsLite;
-using Logic.Ecs.Systems;
 using Logic.Ecs.Systems.Client;
+using Logic.Ecs.Systems.Server;
 using UnityEngine;
 using Zenject;
 
@@ -8,7 +8,6 @@ namespace Libs.Logic.Init
 {
     public class EcsInit : MonoBehaviour
     {
-        private readonly DiContainer _diContainer;
         private EcsSystems _systems;
 
         [Inject]
@@ -33,10 +32,10 @@ namespace Libs.Logic.Init
                 .Add(userMouseInputSystem)
                 .Add(buttonCollisionSystem)
                 .Add(doorOpenSystem)
-                .Add(entityMovementSystem)
                 .Add(entityPositionSynchronizeSystem)
                 .Add(walkAnimationApplySystem)
                 .Add(doorCheckStateSystem)
+                .Add(entityMovementSystem)
 #if UNITY_EDITOR
                 .Add (new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem ())
 #endif
