@@ -4,6 +4,7 @@ using Libs.Logic.SceneViews;
 using Libs.Logic.SceneViews.Interfaces;
 using Logic.Ecs.Components.Client;
 using Logic.Ecs.Components.Server;
+using UnityEngine;
 
 namespace Logic.Ecs.Systems.Client
 {
@@ -38,7 +39,7 @@ namespace Logic.Ecs.Systems.Client
                 if (synchronizeObject.Position)
                     unit.GetComponent<IPositionSetter>()?.SetPosition(heroPosition.Position);
                 
-                if (synchronizeObject.Rotation)
+                if (synchronizeObject.Rotation && heroPosition.Direction != Vector3.zero)
                     unit.GetComponent<IRotationSetter>()?.SetDirection(heroPosition.Direction);
             }
         }
