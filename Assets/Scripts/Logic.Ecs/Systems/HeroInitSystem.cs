@@ -14,6 +14,7 @@ namespace Logic.Ecs.Systems
     public class HeroInitSystem : IEcsInitSystem
     {
         private const string HeroPrefab = "Prefabs/Heroes/Hero";
+        private const float MovementSpeed = 2f;
         
         private readonly ResourceLoadService _resourceLoadService;
         private readonly SpawnPointsProvider _spawnPointsProvider;
@@ -37,11 +38,18 @@ namespace Logic.Ecs.Systems
             var world = systems.GetWorld();
             var playerEntity = world.NewEntity();
             var heroesPool = world.GetPool<Hero>();
-            var currentPositionPool = world.GetPool<CurrentPositionComponent>();
-            var synchronizePool = world.GetPool<PositionSynchronize>();
-            ref var hero = ref heroesPool.Add(playerEntity);
+            var currentPositionPool = world.GetPool<CurrentPosition>();
+            var synchronizePool = world.GetPool<TransformSynchronize>();
+            var walkStatePool = world.GetPool<HasWalkAnimation>();
+            var instances = world.GetPool<InstanceId>();
+            var movementSpeeds = world.GetPool<MovementSpeed>();
+            
+            heroesPool.Add(playerEntity);
             ref var currentPosition = ref currentPositionPool.Add(playerEntity);
             ref var sync = ref synchronizePool.Add(playerEntity);
+            ref var instance = ref instances.Add(playerEntity);
+            ref var movementSpeed = ref movementSpeeds.Add(playerEntity);
+            walkStatePool.Add(playerEntity);
             
             var heroGO = _resourceLoadService.Load(HeroPrefab);
             
@@ -56,11 +64,15 @@ namespace Logic.Ecs.Systems
             
             //TODO: выпилить зависимость на юнити
             var playerView = Object.Instantiate(heroGO, heroSpawnPosition, Quaternion.identity, _levelUnit.RunTimeUnitsContainer);
-            
+            playerView.GetComponent<IAnimatorParametersSetter>()?.SetAnimatorMovementSpeed(MovementSpeed);
+                
             _runTimeObjectsContainer.AddNew(playerView.GetInstanceID(), playerView);
             currentPosition.Position = heroSpawnPosition;
-            hero.InstanceId = playerView.GetInstanceID();
-            sync.InstanceId = playerView.GetInstanceID();
+            instance.Id = playerView.GetInstanceID();
+            movementSpeed.Value = MovementSpeed;
+            
+            sync.Position = true;
+            sync.Rotation = true;
         }
     }
 }

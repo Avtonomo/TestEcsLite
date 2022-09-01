@@ -23,8 +23,6 @@ namespace Logic.Ecs.Systems
             if (!Physics.Raycast(ray, out var hit)) return;
             var targetWorldPosition = hit.point;
             
-            Debug.Log($"World mouse pos: {targetWorldPosition}");
-            
             var world = systems.GetWorld();
             var filter = world.Filter<Hero>().End();
             var heroesInput = world.GetPool<MoveTarget>();
@@ -34,12 +32,12 @@ namespace Logic.Ecs.Systems
                 if (heroesInput.Has(heroEntity))
                 {
                     ref var newInput = ref heroesInput.Get(heroEntity);
-                    newInput.TargetPosition = targetWorldPosition;
+                    newInput.TargetPosition = new Vector3(targetWorldPosition.x, 0, targetWorldPosition.z);
                 }
                 else
                 {
                     ref var newInput = ref heroesInput.Add(heroEntity);
-                    newInput.TargetPosition = targetWorldPosition;
+                    newInput.TargetPosition = new Vector3(targetWorldPosition.x, 0, targetWorldPosition.z);;
                 }
             }
         }

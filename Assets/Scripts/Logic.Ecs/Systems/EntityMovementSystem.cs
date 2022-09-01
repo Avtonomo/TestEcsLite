@@ -8,38 +8,35 @@ namespace Logic.Ecs.Systems
 {
     public class EntityMovementSystem : IEcsRunSystem
     {
-        private const float MovementEps = 0.001f;
+        private const float MovementEps = 0.01f;
         
-        private readonly RunTimeObjectsContainer _runTimeObjectsContainer;
-
-        public EntityMovementSystem(RunTimeObjectsContainer runTimeObjectsContainer)
-        {
-            _runTimeObjectsContainer = runTimeObjectsContainer;
-        }
-
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
             var inputs = world.GetPool<MoveTarget>();
-            var heroes = world.GetPool<CurrentPositionComponent>();
-            var filter = world.Filter<CurrentPositionComponent>().End ();
+            var positions = world.GetPool<CurrentPosition>();
+            var movementSpeeds = world.GetPool<MovementSpeed>();
+            var filter = world.Filter<CurrentPosition>().End ();
 
-            foreach (var heroEntity in filter)
+            foreach (var entity in filter)
             {
-                if (!inputs.Has(heroEntity)) continue;
+                if (!inputs.Has(entity)) continue;
 
-                ref var hero = ref heroes.Get (heroEntity);
+                ref var positionContainer = ref positions.Get (entity);
+                ref var moveSpeed = ref movementSpeeds.Get (entity);
 
-                var input = inputs.Get(heroEntity);
+                var input = inputs.Get(entity);
                 
-                var newPosition = Vector3.MoveTowards(hero.Position, input.TargetPosition, Time.deltaTime);
-                hero.Position = newPosition;
+                var newPosition = Vector3.MoveTowards(positionContainer.Position, input.TargetPosition, Time.deltaTime * moveSpeed.Value);
+                var dir = input.TargetPosition - positionContainer.Position;
+
+                positionContainer.Position = newPosition;
+                positionContainer.Direction = dir.normalized;
                 
-                var dir = input.TargetPosition - hero.Position;
                 if (dir.sqrMagnitude < MovementEps)
                 {
                     //Движение окончено
-                    inputs.Del(heroEntity);
+                    inputs.Del(entity);
                 }
             }
         }

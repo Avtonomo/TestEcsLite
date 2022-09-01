@@ -28,7 +28,7 @@ namespace Logic.Ecs.Systems
             {
                 var buttonEntity = world.NewEntity();
                 var buttonPool = world.GetPool<LevelButton>();
-                var positionsPool = world.GetPool<CurrentPositionComponent>();
+                var positionsPool = world.GetPool<CurrentPosition>();
                 ref var levelButton = ref buttonPool.Add(buttonEntity);
                 ref var buttonPosition = ref positionsPool.Add(buttonEntity);
 

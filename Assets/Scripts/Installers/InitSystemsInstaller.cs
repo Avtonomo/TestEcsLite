@@ -19,6 +19,8 @@ namespace Installers
             Container.Bind<EntityPositionSynchronizeSystem>().AsSingle();
             Container.Bind<ButtonCollisionSystem>().AsSingle();
             Container.Bind<DoorOpenSystem>().AsSingle();
+            Container.Bind<WalkAnimationApplySystem>().AsSingle();
+            Container.Bind<DoorCheckStateSystem>().AsSingle();
         }
     }
 }

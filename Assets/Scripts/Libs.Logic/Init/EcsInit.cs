@@ -20,7 +20,9 @@ namespace Libs.Logic.Init
             EntityMovementSystem entityMovementSystem,
             EntityPositionSynchronizeSystem entityPositionSynchronizeSystem,
             ButtonCollisionSystem buttonCollisionSystem,
-            DoorOpenSystem doorOpenSystem)
+            DoorOpenSystem doorOpenSystem,
+            WalkAnimationApplySystem walkAnimationApplySystem,
+            DoorCheckStateSystem doorCheckStateSystem)
         {
             var world = new EcsWorld();
             _systems = new EcsSystems(world);
@@ -33,6 +35,8 @@ namespace Libs.Logic.Init
                 .Add(doorOpenSystem)
                 .Add(entityMovementSystem)
                 .Add(entityPositionSynchronizeSystem)
+                .Add(walkAnimationApplySystem)
+                .Add(doorCheckStateSystem)
 #if UNITY_EDITOR
                 .Add (new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem ())
 #endif

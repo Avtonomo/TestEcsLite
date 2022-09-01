@@ -6,14 +6,14 @@ namespace Logic.Ecs.Systems
 {
     public class ButtonCollisionSystem : IEcsRunSystem
     {
-        private const float ButtonRadios = 0.5f;
+        private const float ButtonRadios = 0.2f;
 
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
             var buttons = world.GetPool<LevelButton>();
-            var positions = world.GetPool<CurrentPositionComponent>();
-            var filterHeroes = world.Filter<Hero>().Inc<CurrentPositionComponent>().End ();
+            var positions = world.GetPool<CurrentPosition>();
+            var filterHeroes = world.Filter<Hero>().Inc<CurrentPosition>().End ();
             var filterButtons = world.Filter<LevelButton>().End ();
 
             foreach (var heroEntity in filterHeroes)
